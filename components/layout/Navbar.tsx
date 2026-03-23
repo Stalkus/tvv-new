@@ -89,8 +89,24 @@ export default function Navbar() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
+                <Link href="/hotels" className={flatNavClass}>
+                  Hotels
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
                 <Link href="/holiday" className={flatNavClass}>
                   Holiday
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/cruises" className={flatNavClass}>
+                  Cruises
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -127,10 +143,22 @@ export default function Navbar() {
               Flights
             </Link>
             <Link
+              href="/hotels"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
+            >
+              Hotels
+            </Link>
+            <Link
               href="/holiday"
               className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
             >
               Holiday
+            </Link>
+            <Link
+              href="/cruises"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
+            >
+              Cruises
             </Link>
           </nav>
         </div>

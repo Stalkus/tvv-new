@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { TRIPJACK_PORTAL_URL } from "@/lib/booking-partner";
 
 export const metadata: Metadata = {
   title: "Holiday packages | The Vacation Voice",
@@ -20,16 +21,17 @@ export default function HolidayPage() {
         </nav>
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground md:text-5xl">Holiday packages</h1>
         <p className="mt-6 max-w-2xl text-lg text-zinc-600">
-          From weekend breaks to multi-country tours, explore itineraries organised by region—similar to how{" "}
+          From weekend breaks to multi-country tours, explore itineraries organised by region. Land arrangements and
+          supplier inventory are coordinated through our B2B partner{" "}
           <a
-            href="https://www.thrillophilia.com/"
+            href={TRIPJACK_PORTAL_URL}
             className="font-medium text-primary underline-offset-4 hover:underline"
             target="_blank"
             rel="noreferrer"
           >
-            Thrillophilia
-          </a>{" "}
-          groups destinations—with The Vacation Voice planning and transparent inclusions.
+            Tripjack
+          </a>
+          , with The Vacation Voice handling planning and transparent inclusions.
         </p>
         <Button className="mt-8 rounded-xl shadow-sm" asChild>
           <Link href="/packages">Explore all packages</Link>
