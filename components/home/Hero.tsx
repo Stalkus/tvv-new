@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
+const BRAND = "#75D1C1";
+
 const serviceCards = [
   {
     href: "/hotels",
@@ -43,130 +45,136 @@ const serviceCards = [
   },
 ];
 
+/** Compact viewBox — routes & planes sized to read clearly when scaled ~240–320px tall */
 function GlobeWithFlights({ className }: { className?: string }) {
   const pins = [
-    { cx: 168, cy: 168 },
-    { cx: 242, cy: 124 },
-    { cx: 400, cy: 98 },
-    { cx: 520, cy: 142 },
-    { cx: 612, cy: 188 },
-    { cx: 338, cy: 248 },
-    { cx: 458, cy: 268 },
-    { cx: 548, cy: 302 },
+    { cx: 120, cy: 118 },
+    { cx: 188, cy: 82 },
+    { cx: 300, cy: 62 },
+    { cx: 392, cy: 96 },
+    { cx: 468, cy: 132 },
+    { cx: 258, cy: 168 },
+    { cx: 348, cy: 188 },
+    { cx: 418, cy: 208 },
   ];
 
   return (
     <svg
       className={className}
-      viewBox="0 0 800 420"
+      viewBox="0 0 560 280"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
       <defs>
         <linearGradient id="heroGlobeWash" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="hsl(var(--primary) / 0.14)" />
-          <stop offset="100%" stopColor="hsl(var(--primary) / 0.06)" />
+          <stop offset="0%" stopColor={BRAND} stopOpacity="0.18" />
+          <stop offset="100%" stopColor={BRAND} stopOpacity="0.07" />
         </linearGradient>
+        <filter id="heroPlaneGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1.5" floodColor={BRAND} floodOpacity="0.55" />
+        </filter>
       </defs>
 
-      <ellipse cx="400" cy="210" rx="300" ry="168" fill="url(#heroGlobeWash)" />
+      <ellipse cx="280" cy="140" rx="248" ry="118" fill="url(#heroGlobeWash)" />
 
-      <g className="text-primary" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none">
-        <path
-          strokeOpacity={0.22}
-          d="M 140 260 Q 220 200 280 220 Q 340 240 400 200 Q 480 150 560 180 Q 640 210 680 160"
-        />
-        <path
-          strokeOpacity={0.18}
-          d="M 200 120 Q 280 180 360 160 Q 440 140 520 200 Q 580 240 640 200"
-        />
-        <path strokeOpacity={0.2} d="M 260 300 Q 400 220 540 280 Q 620 320 700 260" />
-        <path
-          strokeOpacity={0.16}
-          d="M 480 100 Q 420 200 380 280 Q 340 340 280 320"
-        />
+      <g stroke={BRAND} strokeWidth={1.2} strokeLinecap="round" fill="none" opacity={0.35}>
+        <path d="M 88 168 Q 160 120 220 138 Q 280 156 340 118 Q 400 88 472 108" />
+        <path d="M 128 72 Q 200 120 280 108 Q 360 96 428 132" />
       </g>
 
       {pins.map((p, i) => (
-        <g key={i} className="text-primary" transform={`translate(${p.cx} ${p.cy})`}>
+        <g key={i} transform={`translate(${p.cx} ${p.cy})`}>
           <path
-            d="M0 -10 C -6 -10 -10 -4 -10 2 C -10 10 0 18 0 18 C0 18 10 10 10 2 C10 -4 6 -10 0 -10Z"
-            fill="currentColor"
-            fillOpacity={0.35}
-            stroke="currentColor"
-            strokeOpacity={0.45}
-            strokeWidth={0.6}
+            d="M0 -9 C -5 -9 -9 -4 -9 2 C -9 9 0 16 0 16 C0 16 9 9 9 2 C9 -4 5 -9 0 -9Z"
+            fill={BRAND}
+            fillOpacity={0.45}
+            stroke={BRAND}
+            strokeOpacity={0.6}
+            strokeWidth={0.5}
           />
         </g>
       ))}
 
-      <g className="text-primary">
-        <path
-          id="heroFlightPathA"
-          d="M 118 292 C 220 120 520 80 698 214"
-          stroke="currentColor"
-          strokeOpacity={0.4}
-          strokeWidth={1.4}
-          strokeDasharray="6 12"
-          fill="none"
-        />
+      {/* Route A — thick dashed arc */}
+      <path
+        id="heroFlightPathA"
+        d="M 72 200 C 160 72 400 48 498 168"
+        stroke={BRAND}
+        strokeOpacity={0.85}
+        strokeWidth={2.25}
+        strokeDasharray="7 11"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <g filter="url(#heroPlaneGlow)">
         <g>
-          <animateMotion dur="14s" repeatCount="indefinite" rotate="auto">
+          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto">
             <mpath href="#heroFlightPathA" />
           </animateMotion>
-          <path
-            d="M0 -1 L14 0 L0 1 L4 0 Z"
-            fill="currentColor"
-            fillOpacity={0.95}
-            transform="translate(-7, 0) scale(1.15)"
-          />
+          <g transform="translate(-14, -10) scale(1.35)">
+            <path
+              d="M2 10 L22 10 L26 6 L22 2 L2 2 L8 10 Z M22 10 L32 10 L32 14 L22 14 Z"
+              fill={BRAND}
+              stroke="#0f766e"
+              strokeWidth={0.4}
+              strokeOpacity={0.35}
+            />
+          </g>
         </g>
       </g>
 
-      <g className="text-primary">
-        <path
-          id="heroFlightPathB"
-          d="M 702 118 C 520 200 360 240 132 268"
-          stroke="currentColor"
-          strokeOpacity={0.38}
-          strokeWidth={1.4}
-          strokeDasharray="6 12"
-          fill="none"
-        />
+      <path
+        id="heroFlightPathB"
+        d="M 488 72 C 360 120 200 168 72 148"
+        stroke={BRAND}
+        strokeOpacity={0.8}
+        strokeWidth={2.25}
+        strokeDasharray="7 11"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <g filter="url(#heroPlaneGlow)">
         <g>
-          <animateMotion dur="18s" repeatCount="indefinite" rotate="auto" begin="-6s">
+          <animateMotion dur="11s" repeatCount="indefinite" rotate="auto" begin="-4s">
             <mpath href="#heroFlightPathB" />
           </animateMotion>
-          <path
-            d="M0 -1 L14 0 L0 1 L4 0 Z"
-            fill="currentColor"
-            fillOpacity={0.95}
-            transform="translate(-7, 0) scale(1.15)"
-          />
+          <g transform="translate(-14, -10) scale(1.35)">
+            <path
+              d="M2 10 L22 10 L26 6 L22 2 L2 2 L8 10 Z M22 10 L32 10 L32 14 L22 14 Z"
+              fill={BRAND}
+              stroke="#0f766e"
+              strokeWidth={0.4}
+              strokeOpacity={0.35}
+            />
+          </g>
         </g>
       </g>
 
-      <g className="text-primary">
-        <path
-          id="heroFlightPathC"
-          d="M 400 340 Q 520 200 640 140"
-          stroke="currentColor"
-          strokeOpacity={0.36}
-          strokeWidth={1.4}
-          strokeDasharray="6 12"
-          fill="none"
-        />
+      <path
+        id="heroFlightPathC"
+        d="M 280 220 Q 380 120 460 88"
+        stroke={BRAND}
+        strokeOpacity={0.78}
+        strokeWidth={2.25}
+        strokeDasharray="7 11"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <g filter="url(#heroPlaneGlow)">
         <g>
-          <animateMotion dur="11s" repeatCount="indefinite" rotate="auto" begin="-3s">
+          <animateMotion dur="7.5s" repeatCount="indefinite" rotate="auto" begin="-2s">
             <mpath href="#heroFlightPathC" />
           </animateMotion>
-          <path
-            d="M0 -1 L14 0 L0 1 L4 0 Z"
-            fill="currentColor"
-            fillOpacity={0.95}
-            transform="translate(-7, 0) scale(1.15)"
-          />
+          <g transform="translate(-14, -10) scale(1.35)">
+            <path
+              d="M2 10 L22 10 L26 6 L22 2 L2 2 L8 10 Z M22 10 L32 10 L32 14 L22 14 Z"
+              fill={BRAND}
+              stroke="#0f766e"
+              strokeWidth={0.4}
+              strokeOpacity={0.35}
+            />
+          </g>
         </g>
       </g>
     </svg>
@@ -184,21 +192,21 @@ function ServiceCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: motionDelay }}
+      transition={{ duration: 0.4, delay: motionDelay }}
       className={className}
     >
       <Link
         href={card.href}
-        className="group flex items-center gap-3 rounded-2xl border border-border/80 bg-white/95 p-3 pr-4 shadow-md shadow-black/[0.04] ring-1 ring-black/[0.03] backdrop-blur-sm transition-all duration-200 hover:border-primary/35 hover:shadow-lg hover:shadow-primary/10"
+        className="group flex items-center gap-2.5 rounded-xl border border-border/80 bg-white/95 p-2.5 pr-3 shadow-sm ring-1 ring-black/[0.04] backdrop-blur-sm transition-all duration-200 hover:border-primary/40 hover:shadow-md hover:shadow-primary/10"
       >
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full ring-2 ring-white">
-          <Image src={card.image} alt={card.imageAlt} fill className="object-cover" sizes="56px" />
+        <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-white">
+          <Image src={card.image} alt={card.imageAlt} fill className="object-cover" sizes="44px" />
         </div>
         <div className="min-w-0 text-left">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{card.label}</p>
-          <p className="text-sm font-medium leading-snug text-foreground md:text-[15px]">
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{card.label}</p>
+          <p className="text-xs font-medium leading-snug text-foreground sm:text-[13px]">
             {card.titleBefore}{" "}
             <span className="font-bold text-primary">{card.titleBold}</span>
           </p>
@@ -209,43 +217,67 @@ function ServiceCard({
 }
 
 export default function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.07] via-white to-white pb-12 pt-10 md:pb-16 md:pt-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_40%,hsl(var(--primary)/0.12),transparent_65%)]" />
+  const leftCards = [serviceCards[0], serviceCards[2]];
+  const rightCards = [serviceCards[1], serviceCards[3]];
 
-      <div className="relative z-[1] mx-auto max-w-7xl px-4 md:px-8">
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary/[0.06] to-white pb-8 pt-6 md:pb-10 md:pt-8">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_35%,hsl(var(--primary)/0.1),transparent_60%)]" />
+
+      <div className="relative z-[1] mx-auto max-w-6xl px-4 md:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto max-w-2xl text-center"
+          transition={{ duration: 0.45 }}
+          className="mx-auto max-w-xl text-center lg:max-w-2xl"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/90">Global travel, one place</p>
-          <h1 className="mt-2 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
-            Plan anywhere on the map—<span className="text-primary">flights, stays &amp; packages</span>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/90 md:text-xs">
+            Global travel · Tripjack-powered
+          </p>
+          <h1 className="mt-1.5 text-2xl font-extrabold leading-tight tracking-tight text-foreground md:text-3xl lg:text-[2rem]">
+            Plan anywhere—<span className="text-primary">flights, stays &amp; packages</span>
           </h1>
-          <p className="mt-3 text-base text-muted-foreground md:text-lg">
-            Inventory and booking flows are powered by our B2B partner Tripjack—built for travellers worldwide.
+          <p className="mt-2 text-sm text-muted-foreground md:text-[15px]">
+            Book hotels, flights, holidays, and cruises with inventory from our B2B partner.
           </p>
         </motion.div>
 
-        <div className="relative mx-auto mt-10 max-w-5xl md:mt-14">
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-90 md:opacity-100">
-            <GlobeWithFlights className="h-[min(420px,78vw)] w-full max-w-[800px] text-primary" />
+        {/* Desktop: cards flank the map so flight paths stay visible */}
+        <div className="mt-6 hidden items-stretch gap-4 lg:mt-8 lg:flex lg:justify-center">
+          <div className="flex w-[min(100%,220px)] flex-shrink-0 flex-col justify-center gap-2.5 xl:w-[240px]">
+            <ServiceCard card={leftCards[0]} motionDelay={0.06} />
+            <ServiceCard card={leftCards[1]} motionDelay={0.1} />
           </div>
 
-          <div className="relative z-[2] flex flex-col gap-3 md:hidden">
+          <div className="relative flex min-h-[220px] w-full max-w-[420px] flex-shrink-0 flex-col items-center justify-center">
+            <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-wider text-primary/80">
+              Live routes
+            </p>
+            <div className="relative w-full rounded-2xl border border-primary/15 bg-white/40 p-2 shadow-inner shadow-primary/5 ring-1 ring-primary/10 backdrop-blur-[2px]">
+              <GlobeWithFlights className="mx-auto h-[200px] w-full max-w-[400px] text-primary xl:h-[220px]" />
+            </div>
+          </div>
+
+          <div className="flex w-[min(100%,220px)] flex-shrink-0 flex-col justify-center gap-2.5 xl:w-[240px]">
+            <ServiceCard card={rightCards[0]} motionDelay={0.14} />
+            <ServiceCard card={rightCards[1]} motionDelay={0.18} />
+          </div>
+        </div>
+
+        {/* Mobile / tablet: compact map first, then 2×2 cards */}
+        <div className="mt-6 lg:hidden">
+          <div className="mx-auto max-w-md">
+            <p className="mb-1 text-center text-[10px] font-medium uppercase tracking-wider text-primary/80">
+              Live routes
+            </p>
+            <div className="rounded-2xl border border-primary/15 bg-white/50 p-2 shadow-inner ring-1 ring-primary/10">
+              <GlobeWithFlights className="mx-auto h-[min(200px,42vw)] w-full" />
+            </div>
+          </div>
+          <div className="mx-auto mt-4 grid max-w-lg grid-cols-2 gap-2.5 sm:gap-3">
             {serviceCards.map((card, i) => (
-              <ServiceCard key={card.href} card={card} motionDelay={0.05 * i} />
+              <ServiceCard key={card.href} card={card} motionDelay={0.04 * i} />
             ))}
-          </div>
-
-          <div className="relative hidden min-h-[400px] grid-cols-3 grid-rows-2 gap-5 px-2 md:grid">
-            <ServiceCard card={serviceCards[0]} className="col-start-1 row-start-1 justify-self-start" motionDelay={0.08} />
-            <ServiceCard card={serviceCards[1]} className="col-start-3 row-start-1 justify-self-end" motionDelay={0.12} />
-            <div className="col-start-2 row-span-2 min-h-[200px]" aria-hidden />
-            <ServiceCard card={serviceCards[2]} className="col-start-1 row-start-2 justify-self-start self-end" motionDelay={0.16} />
-            <ServiceCard card={serviceCards[3]} className="col-start-3 row-start-2 justify-self-end self-end" motionDelay={0.2} />
           </div>
         </div>
       </div>

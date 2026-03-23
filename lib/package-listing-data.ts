@@ -1,6 +1,13 @@
 import type { PackageCardData } from "@/components/home/HomePackageSection";
 import { domesticMegaColumns, internationalMegaColumns } from "@/lib/nav-mega-data";
-import { andamanPackages, europePackages } from "@/lib/home-package-data";
+import {
+  andamanPackages,
+  domesticPackages,
+  europePackages,
+  internationalPackages,
+  northIndiaPackages,
+  southIndiaPackages,
+} from "@/lib/home-package-data";
 
 export type PackageListingConfig = {
   path: string;
@@ -51,6 +58,8 @@ export function collectPackagePathsFromNav(): string[] {
   }
   set.add("domestic");
   set.add("international");
+  set.add("north-india");
+  set.add("south-india");
   set.add("europe");
   set.add("andaman");
   [
@@ -107,7 +116,7 @@ export function getPackageListingConfig(pathKey: string): PackageListingConfig {
       intro: introDomestic,
       heroImage,
       heroAlt: "India travel — The Vacation Voice",
-      packages: genericPool("India", "mountain"),
+      packages: domesticPackages,
       breadcrumb: [{ label: "Packages", href: "/packages" }],
     };
   }
@@ -121,8 +130,44 @@ export function getPackageListingConfig(pathKey: string): PackageListingConfig {
       intro: introInternational,
       heroImage,
       heroAlt: "International travel — The Vacation Voice",
-      packages: genericPool("Worldwide", "city"),
+      packages: internationalPackages,
       breadcrumb: [{ label: "Packages", href: "/packages" }],
+    };
+  }
+
+  if (pathKey === "north-india") {
+    return {
+      path: pathKey,
+      title: "North India tour packages",
+      metaDescription:
+        "North India holidays—Kashmir, Ladakh, Golden Triangle, Uttarakhand & more. Curated stays and transfers.",
+      intro: introRegion("North India"),
+      heroImage:
+        "https://images.unsplash.com/photo-1566836610610-2a9b6b6e4b8a?q=80&w=1400&auto=format&fit=crop",
+      heroAlt: "North India travel",
+      packages: northIndiaPackages,
+      breadcrumb: [
+        { label: "Packages", href: "/packages" },
+        { label: "India", href: "/packages/domestic" },
+      ],
+    };
+  }
+
+  if (pathKey === "south-india") {
+    return {
+      path: pathKey,
+      title: "South India tour packages",
+      metaDescription:
+        "South India getaways—Kerala, Tamil Nadu, Karnataka, hill stations & beaches with flexible itineraries.",
+      intro: introRegion("South India"),
+      heroImage:
+        "https://images.unsplash.com/photo-1506461883086-45759aedb972?q=80&w=1400&auto=format&fit=crop",
+      heroAlt: "South India travel",
+      packages: southIndiaPackages,
+      breadcrumb: [
+        { label: "Packages", href: "/packages" },
+        { label: "India", href: "/packages/domestic" },
+      ],
     };
   }
 
