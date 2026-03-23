@@ -8,14 +8,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import MegaMenuPanel from "@/components/layout/MegaMenuPanel";
+import { domesticMegaColumns, internationalMegaColumns } from "@/lib/nav-mega-data";
 import { ChevronDown, Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const navLinks = [
-  { href: "/packages/india", label: "India Packages" },
-  { href: "/packages/international", label: "International Packages" },
-  { href: "/activities", label: "Activities" },
-  { href: "/corporate", label: "MICE" },
-];
+const flatNavClass = cn(
+  navigationMenuTriggerStyle(),
+  "inline-flex h-10 items-center bg-transparent px-3 text-foreground/85 no-underline hover:bg-transparent hover:text-primary"
+);
 
 export default function Navbar() {
   return (
@@ -26,25 +36,90 @@ export default function Navbar() {
           className="flex shrink-0 items-center gap-2 transition-opacity duration-200 hover:opacity-90"
         >
           <span
-            className="hidden h-9 w-9 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-lg shadow-sm sm:flex"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/35 bg-primary/10 text-sm font-black tracking-tighter text-primary shadow-sm"
             aria-hidden
           >
-            ✈
+            VV
           </span>
-          <span className="text-lg font-bold tracking-tight text-primary md:text-xl">The Vacation Voice</span>
+          <span className="hidden flex-col leading-tight sm:flex">
+            <span className="text-[11px] italic text-muted-foreground">The</span>
+            <span className="text-base font-bold tracking-tight text-foreground md:text-lg">
+              <span className="lowercase">vacation </span>
+              <span className="text-primary lowercase">voice</span>
+            </span>
+          </span>
+          <span className="flex flex-col leading-tight sm:hidden">
+            <span className="text-sm font-bold tracking-tight text-primary">TVV</span>
+          </span>
         </Link>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[15px] font-medium text-foreground/85 lg:flex">
-          {navLinks.map((l) => (
+        <div className="flex min-w-0 flex-1 items-center justify-center">
+          {/* Desktop mega nav */}
+          <NavigationMenu className="hidden max-w-none lg:flex">
+          <NavigationMenuList className="gap-2">
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Domestic</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <MegaMenuPanel columns={domesticMegaColumns} />
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>International</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <MegaMenuPanel columns={internationalMegaColumns} />
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/exclusive" className={flatNavClass}>
+                  Exclusive
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/hot-deals" className={flatNavClass}>
+                  Hot deals
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+          {/* Mobile: hub links (full mega on lg+) */}
+          <nav
+            aria-label="Primary mobile"
+            className="flex w-full min-w-0 justify-center gap-1 overflow-x-auto px-1 lg:hidden"
+          >
             <Link
-              key={l.href}
-              href={l.href}
-              className="whitespace-nowrap transition-all duration-200 hover:text-primary"
+              href="/packages/domestic"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
             >
-              {l.label}
+              Domestic
             </Link>
-          ))}
-        </nav>
+            <Link
+              href="/packages/international"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
+            >
+              International
+            </Link>
+            <Link
+              href="/exclusive"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
+            >
+              Exclusive
+            </Link>
+            <Link
+              href="/hot-deals"
+              className="whitespace-nowrap rounded-md px-2 py-1.5 text-xs font-semibold text-foreground/85 transition-colors hover:text-primary"
+            >
+              Deals
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <Button

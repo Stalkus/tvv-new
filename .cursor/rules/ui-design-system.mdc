@@ -17,6 +17,7 @@ alwaysApply: true
 
 ## Color
 
+- **Brand**: Primary accent is **teal** (`--primary`, ~`#75D1C1`); body text is **charcoal** (`--foreground`, ~`#333`). See `app/globals.css`.
 - **CTAs / primary actions**: `bg-primary text-primary-foreground` (tokens map to `hsl(var(--primary))` in `app/globals.css`).
 - **Surfaces**: Light areas — subtle **`bg-zinc-50`**; dark sections — **`bg-slate-950`** (or theme `background` / `card` when matching existing pages).
 

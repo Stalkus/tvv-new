@@ -37,39 +37,37 @@
 
 @layer base {
   :root {
-    /* Pure White Background */
+    /* Brand: The Vacation Voice — teal #75D1C1, charcoal #333333 */
     --background: 0 0% 100%;
-    /* Dark Grey Text for Contrast & Readability */
     --foreground: 0 0% 20%;
 
-    /* Clean White Cards */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 20%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    /* Brand orange (~#FF8C00) */
-    --primary: 33 100% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary teal (~#75D1C1) */
+    --primary: 172 48% 64%;
+    /* Charcoal on teal for solid fills (accessible contrast) */
+    --primary-foreground: 220 15% 16%;
 
-    /* Secondary can be a soft teal or neutral */
-    --secondary: 175 100% 36%;
-    --secondary-foreground: 0 0% 100%;
+    /* Soft teal wash for secondary surfaces */
+    --secondary: 172 35% 93%;
+    --secondary-foreground: 220 15% 18%;
 
-    /* Soft Greys */
     --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 215 16% 42%;
 
-    --accent: 33 100% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 172 48% 64%;
+    --accent-foreground: 220 15% 16%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 33 100% 50%;
+    --border: 214 25% 90%;
+    --input: 214 25% 90%;
+    --ring: 172 48% 64%;
 
     --radius: 0.75rem;
     /* Standard rounded corners */
@@ -91,7 +89,7 @@
   h4,
   h5,
   h6 {
-    @apply font-sans text-gray-900;
+    @apply font-sans text-foreground;
   }
 }
 
